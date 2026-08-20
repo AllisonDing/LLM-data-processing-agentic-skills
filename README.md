@@ -6,10 +6,10 @@ This repo provides GPU-accelerated data processing skills for AI coding agents (
 
 | Skill | Description |
 |---|---|
-| `accelerated-computing-cudf` | NVIDIA cuDF — GPU DataFrames and pandas acceleration |
-| `accelerated-computing-cuml` | NVIDIA cuML — GPU-accelerated machine learning |
-| `nemo-curator` | NVIDIA NeMo Curator — scalable multimodal dataset preparation |
-| `nemo-curator-ray` | NeMo Curator Ray Data backend — distributed pipeline tuning |
+| `accelerated-computing-cudf` | NVIDIA cuDF -- GPU DataFrames and pandas acceleration |
+| `accelerated-computing-cuml` | NVIDIA cuML -- GPU-accelerated machine learning |
+| `nemo-curator` | NVIDIA NeMo Curator -- scalable multimodal dataset preparation |
+| `nemo-curator-ray` | NeMo Curator Ray Data backend -- distributed pipeline tuning |
 
 ## Prerequisites
 
@@ -19,8 +19,8 @@ This repo provides GPU-accelerated data processing skills for AI coding agents (
 
 ## 1. Clone the Repo
 
-    git clone https://github.com/AllisonDing/LLM-data-processing-agentic-skill.git
-    cd LLM-data-processing-agentic-skill
+    git clone https://github.com/AllisonDing/LLM-data-processing-agentic-skills.git
+    cd LLM-data-processing-agentic-skills
 
 ## 2. Deploy Skills to Claude Code and Codex
 
@@ -38,6 +38,11 @@ This repo provides GPU-accelerated data processing skills for AI coding agents (
     cp -r skill-files/nemo-curator ~/.agents/skills/
     cp -r skill-files/nemo-curator-ray ~/.agents/skills/
 
+Verify:
+
+    ls ~/.claude/skills/
+    ls ~/.agents/skills/
+
 ## 3. Build the Docker Environment (Optional)
 
     docker build -t llm-data-processing .
@@ -53,3 +58,17 @@ Test inside the container:
     (reads skills, generates) -> (executes GPU code)
          ~/.claude/skills/           cuDF + cuML
          ~/.agents/skills/           NeMo Curator
+
+- Skills tell the agent how to write correct GPU-accelerated code
+- Docker provides the environment to run that code on your GPU
+
+## References
+
+All skills in this repo are based on NVIDIA products and open-source projects:
+
+| Product | Availability | Source |
+|---|---|---|
+| cuDF | Public | https://github.com/nvidia/skills |
+| cuML | Not yet public | Bundled in this repo |
+| NeMo Curator | Public | https://github.com/NVIDIA-NeMo/Curator/blob/main/AGENTS.md |
+| NeMo Curator Ray | Public | https://github.com/NVIDIA-NeMo/Curator/blob/main/nemo_curator/backends/ray_data/AGENTS.md |
