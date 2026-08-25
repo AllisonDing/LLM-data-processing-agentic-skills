@@ -1,74 +1,43 @@
-# LLM Data Processing — Agentic Skills
+# LLM Data Processing Agentic Skills
 
-This repo provides GPU-accelerated data processing skills for AI coding agents (Claude Code, Codex) and a Docker environment with the required Python libraries pre-installed.
+Skills for Claude Code and Codex that teach GPU-accelerated LLM data processing using cuDF, cuML, and NeMo Curator (with Ray).
 
-## Skills Included
+## Install Skills
 
-| Skill | Description |
-|---|---|
-| `accelerated-computing-cudf` | NVIDIA cuDF -- GPU DataFrames and pandas acceleration |
-| `accelerated-computing-cuml` | NVIDIA cuML -- GPU-accelerated machine learning |
-| `nemo-curator` | NVIDIA NeMo Curator -- scalable multimodal dataset preparation |
-| `nemo-curator-ray` | NeMo Curator Ray Data backend -- distributed pipeline tuning |
+For Claude Code and Codex to use these skills, clone the repo and copy the skill files to the appropriate locations.
 
-## Prerequisites
+```bash
+git clone https://github.com/AllisonDing/LLM-data-processing-agentic-skills.git
+cd LLM-data-processing-agentic-skills
+```
 
-- NVIDIA GPU with driver 580+ (CUDA 13)
-- Docker with NVIDIA Container Toolkit
-- Claude Code (`claude`) and/or Codex (`codex`) installed
+**Claude Code:**
+```bash
+mkdir -p ~/.claude/skills
+cp -r skill-files/accelerated-computing-cudf ~/.claude/skills/
+cp -r skill-files/accelerated-computing-cuml ~/.claude/skills/
+cp -r skill-files/nemo-curator ~/.claude/skills/
+cp -r skill-files/nemo-curator-ray ~/.claude/skills/
+```
 
-## 1. Clone the Repo
+**Codex:**
+```bash
+mkdir -p ~/.agents/skills
+cp -r skill-files/accelerated-computing-cudf ~/.agents/skills/
+cp -r skill-files/accelerated-computing-cuml ~/.agents/skills/
+cp -r skill-files/nemo-curator ~/.agents/skills/
+cp -r skill-files/nemo-curator-ray ~/.agents/skills/
+```
 
-    git clone https://github.com/AllisonDing/LLM-data-processing-agentic-skills.git
-    cd LLM-data-processing-agentic-skills
+## Run NeMo Curator
 
-## 2. Deploy Skills to Claude Code and Codex
+To run NeMo Curator with GPU support, build from source and launch the container.
 
-    # Claude Code
-    mkdir -p ~/.claude/skills
-    cp -r skill-files/accelerated-computing-cudf ~/.claude/skills/
-    cp -r skill-files/accelerated-computing-cuml ~/.claude/skills/
-    cp -r skill-files/nemo-curator ~/.claude/skills/
-    cp -r skill-files/nemo-curator-ray ~/.claude/skills/
-
-    # Codex
-    mkdir -p ~/.agents/skills
-    cp -r skill-files/accelerated-computing-cudf ~/.agents/skills/
-    cp -r skill-files/accelerated-computing-cuml ~/.agents/skills/
-    cp -r skill-files/nemo-curator ~/.agents/skills/
-    cp -r skill-files/nemo-curator-ray ~/.agents/skills/
-
-Verify:
-
-    ls ~/.claude/skills/
-    ls ~/.agents/skills/
-
-## 3. Build the Docker Environment (Optional)
-
-    docker build -t llm-data-processing .
-    docker run --gpus all -it llm-data-processing bash
-
-Test inside the container:
-
-    python -c "import cudf, cuml, nemo_curator; print('All OK')"
-
-## How It Works
-
-    Claude Code / Codex          Docker Container
-    (reads skills, generates) -> (executes GPU code)
-         ~/.claude/skills/           cuDF + cuML
-         ~/.agents/skills/           NeMo Curator
-
-- Skills tell the agent how to write correct GPU-accelerated code
-- Docker provides the environment to run that code on your GPU
-
-## References
-
-All skills in this repo are based on NVIDIA products and open-source projects:
-
-| Product | Availability | Source |
-|---|---|---|
-| cuDF | Public | https://github.com/nvidia/skills |
-| cuML | Not yet public | Bundled in this repo |
-| NeMo Curator | Public | https://github.com/NVIDIA-NeMo/Curator/blob/main/AGENTS.md |
-| NeMo Curator Ray | Public | https://github.com/NVIDIA-NeMo/Curator/blob/main/nemo_curator/backends/ray_data/AGENTS.md |
+```bash
+git clone https://github.com/NVIDIA-NeMo/Curator.git
+cd Curator
+docker build -t nemo-curator-from-source -f docker/Dockerfile .
+docker run --gpus all -it \
+    -v /home/allisond/Curator:/workspace/Curator \
+    nemo-curator-from-source bash
+```
