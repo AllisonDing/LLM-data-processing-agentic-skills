@@ -1,6 +1,6 @@
 # LLM Data Processing Agentic Skills
 
-Skills for Claude Code and Codex that teach GPU-accelerated LLM data processing using cuDF, cuML, and NeMo Curator (with Ray).
+Skills for Claude Code and Codex that teach GPU-accelerated LLM data processing using cuDF, cuML, and NeMo Curator.
 
 ## Install Skills
 
@@ -21,6 +21,14 @@ cp -r skill-files/nemo-curator-ray ~/.claude/skills/
 ```
 
 **Codex:**
+
+> **Note:** Codex reads `AGENTS.md` instead of `SKILL.md`. Before copying, rename each skill's `SKILL.md` to `AGENTS.md`:
+> ```bash
+> for skill in skill-files/accelerated-computing-cudf skill-files/accelerated-computing-cuml skill-files/nemo-curator skill-files/nemo-curator-ray; do
+>     cp $skill/SKILL.md $skill/AGENTS.md
+> done
+> ```
+
 ```bash
 mkdir -p ~/.agents/skills
 cp -r skill-files/accelerated-computing-cudf ~/.agents/skills/
