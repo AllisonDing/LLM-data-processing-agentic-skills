@@ -4,7 +4,7 @@ Skills for Claude Code and Codex that teach GPU-accelerated LLM data processing 
 
 ## Install Skills
 
-For Claude Code and Codex to use these skills, clone each skill's source repo and copy the skill files to the appropriate locations.
+Use these skills to generate the LLM data curation pipeline. For Claude Code and Codex to use these skills, clone each skill's source repo and copy the skill files to the appropriate locations.
 
 **Claude Code:**
 ```bash
@@ -55,7 +55,7 @@ cp Curator/nemo_curator/backends/ray_data/AGENTS.md ~/.agents/skills/nemo-curato
 
 ## Run NeMo Curator
 
-To run NeMo Curator with GPU support, build from source and launch the container.
+Use this to execute the LLM data curation pipeline on the NeMo Curator docker container. To run NeMo Curator with GPU support, build from source and launch the container.
 
 ```bash
 git clone https://github.com/NVIDIA-NeMo/Curator.git
